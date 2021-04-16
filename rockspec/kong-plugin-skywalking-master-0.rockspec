@@ -1,18 +1,18 @@
 package = "kong-plugin-skywalking"
 version = "master-0"
 source = {
-   url = "git://github.com/apache/skywalking-nginx-lua",
+   url = "git://github.com/apache/skywalking-kong",
    branch = "master",
 }
 
 description = {
-   summary = "The Nginx Lua agent for Apache SkyWalking",
-   homepage = "https://github.com/apache/skywalking-nginx-lua",
+   summary = "The Kong agent for Apache SkyWalking",
+   homepage = "https://github.com/apache/skywalking-kong",
    license = "Apache License 2.0"
 }
 
 dependencies = {
-   "skywalking-nginx-lua >= master"
+   "skywalking-nginx-lua >= 0.4-1"
 }
 
 build = {
