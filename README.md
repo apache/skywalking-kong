@@ -5,7 +5,7 @@ Apache SkyWalking Kong Agent
 
 [![Twitter Follow](https://img.shields.io/twitter/follow/asfskywalking.svg?style=for-the-badge&label=Follow&logo=twitter)](https://twitter.com/AsfSkyWalking)
 
-![CI](https://github.com/apache/skywalking-kong/workflows/CI/badge.svg?branch=master)
+![E2E](https://github.com/apache/skywalking-kong/workflows/e2e/badge.svg?branch=master)
 
 SkyWalking Kong agent built on [SkyWalking Nginx Lua agent](https://github.com/apache/skywalking-nginx-lua) to trace Kong API gateway for [Apache SkyWalking](https://github.com/apache/skywalking) APM.
 
