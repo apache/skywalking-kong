@@ -20,6 +20,12 @@
 
 cd skywalking-kong
 
+wget -P ~/ https://github.com/apache/skywalking-nginx-lua/archive/refs/heads/master.zip
+
+unzip -q ~/master.zip -d ~/
+
+luarocks make ~/skywalking-nginx-lua-master/rockspec/skywalking-nginx-lua-master-0.rockspec --local
+
 luarocks make ./rockspec/kong-plugin-skywalking-master-0.rockspec --local
 
 kong migrations bootstrap
