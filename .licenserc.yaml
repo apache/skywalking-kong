@@ -14,26 +14,19 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-name: E2E
+header:
+  license:
+    spdx-id: Apache-2.0
+    copyright-owner: Apache Software Foundation
 
-on:
-  pull_request:
-  push:
-    branches:
-      - master
-    tags:
-      - 'v*'
+  paths-ignore:
+    - 'dist'
+    - 'licenses'
+    - '**/*.md'
+    - 'LICENSE'
+    - 'NOTICE'
+    - 'rockspec'
+    - '.gitignore'
+    - '.luacheckrc'
 
-jobs:
-  E2E:
-    runs-on: ubuntu-18.04
-    timeout-minutes: 180
-    strategy:
-      fail-fast: true
-    steps:
-      - uses: actions/checkout@v2
-      - name: checkout submodules
-        shell: bash
-        run: |
-          git submodule sync --recursive
-          git -c protocol.version=2 submodule update --init --force --recursive --depth=1
+  comment: on-failure

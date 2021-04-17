@@ -14,7 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-name: E2E
+name: CI AND IT
 
 on:
   pull_request:
@@ -25,15 +25,15 @@ on:
       - 'v*'
 
 jobs:
-  E2E:
+  CI:
     runs-on: ubuntu-18.04
-    timeout-minutes: 180
-    strategy:
-      fail-fast: true
+    timeout-minutes: 90
     steps:
       - uses: actions/checkout@v2
-      - name: checkout submodules
-        shell: bash
-        run: |
-          git submodule sync --recursive
-          git -c protocol.version=2 submodule update --init --force --recursive --depth=1
+        with:
+          submodules: true
+      - name: Check License Header
+        if: env.SKIP_CI != 'true'
+        uses: apache/skywalking-eyes@main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
