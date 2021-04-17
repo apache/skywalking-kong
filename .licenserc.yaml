@@ -25,5 +25,8 @@ header:
     - '**/*.md'
     - 'LICENSE'
     - 'NOTICE'
+    - 'rockspec'
+    - '.gitignore'
+    - '.luacheckrc'
 
   comment: on-failure
