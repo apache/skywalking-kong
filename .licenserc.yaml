@@ -28,5 +28,6 @@ header:
     - 'rockspec'
     - '.gitignore'
     - '.luacheckrc'
+    - '.mvn'
 
   comment: on-failure
