@@ -15,47 +15,99 @@
 # limitations under the License.
 
 segmentItems:
-- serviceName: kong
-  segmentSize: eq 1
-  segments:
-  - segmentId: not null
-    spans:
-    - operationName: "/mock"
-      parentSpanId: 0
-      spanId: 1
-      spanLayer: Http
-      tags:
-      - key: http.status
-        value: '200'
-      startTime: gt 0
-      endTime: gt 0
-      componentId: 6001
-      spanType: Exit
-      peer: localhost
-      skipAnalysis: false
-    - operationName: "/mock"
-      parentSpanId: -1
-      spanId: 0
-      spanLayer: Http
-      tags:
-      - key: http.method
-        value: GET
-      - key: http.params
-        value: http://localhost/mock
-      - key: kong.node
-        value: not null
-      - key: kong.service
-        value: not null
-      - key: kong.route
-        value: not null
-      - key: kong.service_name
-        value: example-service
-      - key: http.status
-        value: '200'
-      startTime: gt 0
-      endTime: gt 0
-      componentId: 6001
-      spanType: Entry
-      peer: ''
-      skipAnalysis: false
-
+  - serviceName: kong
+    segmentSize: '2'
+    segments:
+      - segmentId: not null
+        spans:
+          - operationName: "/backend"
+            operationId: '0'
+            parentSpanId: '0'
+            spanId: '1'
+            spanLayer: Http
+            tags:
+              - key: http.status
+                value: '200'
+            startTime: gt 0
+            endTime: gt 0
+            componentId: '6001'
+            spanType: Exit
+            peer: localhost
+            skipAnalysis: 'false'
+          - operationName: "/backend"
+            operationId: '0'
+            parentSpanId: "-1"
+            spanId: '0'
+            spanLayer: Http
+            tags:
+              - key: http.method
+                value: GET
+              - key: http.params
+                value: http://localhost/backend
+              - key: kong.node
+                value: not null
+              - key: kong.service
+                value: not null
+              - key: kong.route
+                value: not null
+              - key: kong.service_name
+                value: upstream-service
+              - key: http.status
+                value: '200'
+            refs:
+              - parentEndpoint: "/mock"
+                networkAddress: localhost
+                refType: CrossProcess
+                parentSpanId: 1
+                parentTraceSegmentId: not null
+                parentServiceInstance: kong-with-skywalking
+                parentService: kong
+                traceId: not null
+            startTime: gt 0
+            endTime: gt 0
+            componentId: '6001'
+            spanType: Entry
+            peer: ''
+            skipAnalysis: 'false'
+      - segmentId: not null
+        spans:
+          - operationName: "/mock"
+            operationId: '0'
+            parentSpanId: '0'
+            spanId: '1'
+            spanLayer: Http
+            tags:
+              - key: http.status
+                value: '200'
+            startTime: gt 0
+            endTime: gt 0
+            componentId: '6001'
+            spanType: Exit
+            peer: localhost
+            skipAnalysis: 'false'
+          - operationName: "/mock"
+            operationId: '0'
+            parentSpanId: "-1"
+            spanId: '0'
+            spanLayer: Http
+            tags:
+              - key: http.method
+                value: GET
+              - key: http.params
+                value: http://localhost/mock
+              - key: kong.node
+                value: not null
+              - key: kong.service
+                value: not null
+              - key: kong.route
+                value: not null
+              - key: kong.service_name
+                value: mock-service
+              - key: http.status
+                value: '200'
+            startTime: gt 0
+            endTime: gt 0
+            componentId: '6001'
+            spanType: Entry
+            peer: ''
+            skipAnalysis: 'false'

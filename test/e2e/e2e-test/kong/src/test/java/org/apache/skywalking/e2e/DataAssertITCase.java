@@ -55,8 +55,10 @@ public class DataAssertITCase {
         try (CloseableHttpResponse response = client.execute(new HttpGet(kongAdminBaseUrl))) {
             Assert.assertEquals(200, response.getStatusLine().getStatusCode());
         }
-        createService();
-        addRouteForService();
+        createBackendService();
+        createMockService();
+        addRouteForUpstream();
+        addRouteForMock();
         enablePlugin();
     }
 
@@ -100,10 +102,10 @@ public class DataAssertITCase {
         Assert.assertTrue("Test failed.", times <= MAX_RETRY_TIMES);
     }
 
-    private void createService() throws IOException {
+    private void createBackendService() throws IOException {
         HttpPost post = new HttpPost(kongAdminBaseUrl + "/services");
         List<BasicNameValuePair> basicNameValuePairs = Lists.newArrayList(
-            new BasicNameValuePair("name", "example-service"),
+            new BasicNameValuePair("name", "upstream-service"),
             new BasicNameValuePair("url", "http://mockbin.org")
         );
         UrlEncodedFormEntity entity = new UrlEncodedFormEntity(basicNameValuePairs);
@@ -112,12 +114,38 @@ public class DataAssertITCase {
             Assert.assertEquals(201, response.getStatusLine().getStatusCode());
         }
     }
-
-    private void addRouteForService() throws IOException {
-        HttpPost post = new HttpPost(kongAdminBaseUrl + "/services/example-service/routes");
+    
+    private void createMockService() throws IOException {
+        HttpPost post = new HttpPost(kongAdminBaseUrl + "/services");
         List<BasicNameValuePair> basicNameValuePairs = Lists.newArrayList(
-            new BasicNameValuePair("name", "mocking"),
-            new BasicNameValuePair("paths[]", "/mock")
+                new BasicNameValuePair("name", "mock-service"),
+                new BasicNameValuePair("url", "http://localhost:8000/backend")
+        );
+        UrlEncodedFormEntity entity = new UrlEncodedFormEntity(basicNameValuePairs);
+        post.setEntity(entity);
+        try (CloseableHttpResponse response = client.execute(post)) {
+            Assert.assertEquals(201, response.getStatusLine().getStatusCode());
+        }
+    }
+
+    private void addRouteForUpstream() throws IOException {
+        HttpPost post = new HttpPost(kongAdminBaseUrl + "/services/upstream-service/routes");
+        List<BasicNameValuePair> basicNameValuePairs = Lists.newArrayList(
+            new BasicNameValuePair("name", "upstream"),
+            new BasicNameValuePair("paths[]", "/backend")
+        );
+        UrlEncodedFormEntity entity = new UrlEncodedFormEntity(basicNameValuePairs);
+        post.setEntity(entity);
+        try (CloseableHttpResponse response = client.execute(post)) {
+            Assert.assertEquals(201, response.getStatusLine().getStatusCode());
+        }
+    }
+    
+    private void addRouteForMock() throws IOException {
+        HttpPost post = new HttpPost(kongAdminBaseUrl + "/services/mock-service/routes");
+        List<BasicNameValuePair> basicNameValuePairs = Lists.newArrayList(
+                new BasicNameValuePair("name", "mocking"),
+                new BasicNameValuePair("paths[]", "/mock")
         );
         UrlEncodedFormEntity entity = new UrlEncodedFormEntity(basicNameValuePairs);
         post.setEntity(entity);
