@@ -18,11 +18,11 @@
 
 # export KONG_NGINX_HTTP_LUA_SHARED_DICT="tracing_buffer 128m"
 
-wget -P ~/ https://github.com/apache/skywalking-nginx-lua/archive/refs/heads/master.zip
+wget -P ~/ -O master.zip https://github.com/apache/skywalking-nginx-lua/archive/39686396ae23d7d341a8ff2212888f02d0b19f6d.zip
 
 unzip -q ~/master.zip -d ~/
 
-cd ~/skywalking-nginx-lua-master
+cd ~/skywalking-nginx-lua-*
 
 luarocks make ./rockspec/skywalking-nginx-lua-master-0.rockspec --local
 
