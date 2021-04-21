@@ -32,7 +32,7 @@
 
     <modules>
         <module>agent-test-tools</module>
-        <module>e2e-test</module>
+        <module>e2e-test-kong</module>
     </modules>
 
     <properties>
