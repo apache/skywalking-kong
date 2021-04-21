@@ -23,6 +23,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+
+import com.google.common.io.ByteStreams;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -78,14 +80,28 @@ public class DataAssertITCase {
         while (++times <= MAX_RETRY_TIMES);
 
         TimeUnit.SECONDS.sleep(3L);
-        try (CloseableHttpResponse response = client.execute(new HttpGet(serviceEntry))) {
-            final int statusCode = response.getStatusLine().getStatusCode();
-            Assert.assertTrue(statusCode >= 200 && statusCode <= 400);
+        visitServiceEntry();
+    
+        TimeUnit.SECONDS.sleep(5L); // Wait Agent reported TraceSegment.
+        times = 0;
+        boolean success = false;
+        do {
+            try (CloseableHttpResponse response = client.execute(new HttpGet(collectorBaseURL + "/receiveData"))) {
+                String content = new String(ByteStreams.toByteArray(response.getEntity().getContent()));
+                if (!"segmentItems: []".equals(content)) {
+                    success = true;
+                    break;
+                }
+                TimeUnit.SECONDS.sleep(1);
+            }
+        } while (++times <= MAX_RETRY_TIMES);
+        
+        if (!success) {
+            visitServiceEntry();
         }
-
+        
         times = 0;
         do {
-            TimeUnit.SECONDS.sleep(5L); // Wait Agent reported TraceSegment.
 
             HttpPost post = new HttpPost(collectorBaseURL + "/dataValidate");
             InputStream input = DataAssertITCase.class.getResourceAsStream("/expectedData.yaml");
@@ -96,12 +112,20 @@ public class DataAssertITCase {
                 }
             }
             post.abort();
+            TimeUnit.SECONDS.sleep(5000L); // Wait Agent reported TraceSegment.
         }
         while (++times <= MAX_RETRY_TIMES);
 
         Assert.assertTrue("Test failed.", times <= MAX_RETRY_TIMES);
     }
-
+    
+    private void visitServiceEntry() throws IOException {
+        try (CloseableHttpResponse response = client.execute(new HttpGet(serviceEntry))) {
+            final int statusCode = response.getStatusLine().getStatusCode();
+            Assert.assertTrue(statusCode >= 200 && statusCode <= 400);
+        }
+    }
+    
     private void createBackendService() throws IOException {
         HttpPost post = new HttpPost(kongAdminBaseUrl + "/services");
         List<BasicNameValuePair> basicNameValuePairs = Lists.newArrayList(

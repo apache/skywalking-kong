@@ -22,11 +22,13 @@ set -ex
 
 COMMIT_ID="39686396ae23d7d341a8ff2212888f02d0b19f6d"
 
-wget -P ~/ https://github.com/apache/skywalking-nginx-lua/archive/${COMMIT_ID}.zip
+mkdir ~/skywalking-nginx-lua
+cd ~/skywalking-nginx-lua
 
-unzip -q ~/${COMMIT_ID}.zip -d ~/
-
-cd ~/skywalking-nginx-lua-${COMMIT_ID}
+git init
+git remote add origin https://github.com/apache/skywalking-nginx-lua
+git fetch origin ${COMMIT_ID}
+git checkout ${COMMIT_ID}
 
 luarocks make ./rockspec/skywalking-nginx-lua-master-0.rockspec --local
 

@@ -138,9 +138,19 @@
                 </configuration>
                 <executions>
                     <execution>
+                        <id>integration-test</id>
                         <goals>
+                            <goal>integration-test</goal>
                             <goal>verify</goal>
                         </goals>
+                        <configuration>
+                            <excludes>
+                                <exclude>none</exclude>
+                            </excludes>
+                            <includes>
+                                <include>**/*ITCase.java</include>
+                            </includes>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
