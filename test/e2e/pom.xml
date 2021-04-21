@@ -52,9 +52,6 @@
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
-        <docker-maven-plugin.version>0.4.13</docker-maven-plugin.version>
-
         <maven-failsafe-plugin.version>3.0.0-M4</maven-failsafe-plugin.version>
         <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
         <docker-maven-plugin.version>0.30.0</docker-maven-plugin.version>
@@ -187,23 +184,6 @@
                             <version>${maven-failsafe-plugin.version}</version>
                         </dependency>
                     </dependencies>
-                    <executions>
-                        <execution>
-                            <id>integration-test</id>
-                            <goals>
-                                <goal>integration-test</goal>
-                                <goal>verify</goal>
-                            </goals>
-                            <configuration>
-                                <excludes>
-                                    <exclude>none</exclude>
-                                </excludes>
-                                <includes>
-                                    <include>**/*ITCase.java</include>
-                                </includes>
-                            </configuration>
-                        </execution>
-                    </executions>
                 </plugin>
                 <plugin>
                     <groupId>io.fabric8</groupId>
@@ -249,11 +229,6 @@
                     <target>${java.version}</target>
                     <encoding>${project.build.sourceEncoding}</encoding>
                 </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>${surefire.version}</version>
             </plugin>
         </plugins>
     </build>

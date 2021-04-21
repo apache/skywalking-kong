@@ -37,7 +37,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class DataAssertITCase {
-    private CloseableHttpClient client = HttpClientBuilder.create().build();
+    private final CloseableHttpClient client = HttpClientBuilder.create().build();
     private static final int MAX_RETRY_TIMES = 5;
     private String collectorBaseURL;
     private String serviceEntry;
