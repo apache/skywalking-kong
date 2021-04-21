@@ -176,7 +176,7 @@
                                 <volumes>
                                     <bind>
                                         <volume>${project.basedir}/docker:/docker</volume>
-                                        <volume>${project.basedir}/../../../..:/skywalking-kong</volume>
+                                        <volume>${project.basedir}/../../..:/skywalking-kong</volume>
                                     </bind>
                                 </volumes>
                                 <ports>

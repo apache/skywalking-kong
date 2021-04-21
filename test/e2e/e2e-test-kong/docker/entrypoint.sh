@@ -16,13 +16,17 @@
 # specific language governing permissions and limitations
 # under the License.
 
+set -ex
+
 # export KONG_NGINX_HTTP_LUA_SHARED_DICT="tracing_buffer 128m"
 
-wget -P ~/ -O master.zip https://github.com/apache/skywalking-nginx-lua/archive/39686396ae23d7d341a8ff2212888f02d0b19f6d.zip
+COMMIT_ID="39686396ae23d7d341a8ff2212888f02d0b19f6d"
 
-unzip -q ~/master.zip -d ~/
+wget -P ~/ https://github.com/apache/skywalking-nginx-lua/archive/${COMMIT_ID}.zip
 
-cd ~/skywalking-nginx-lua-*
+unzip -q ~/${COMMIT_ID}.zip -d ~/
+
+cd ~/skywalking-nginx-lua-${COMMIT_ID}
 
 luarocks make ./rockspec/skywalking-nginx-lua-master-0.rockspec --local
 
