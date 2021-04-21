@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 # Licensed to the Apache Software Foundation (ASF) under one
 # or more contributor license agreements.  See the NOTICE file
 # distributed with this work for additional information
@@ -14,20 +16,21 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-header:
-  license:
-    spdx-id: Apache-2.0
-    copyright-owner: Apache Software Foundation
+WORK_DIRECTORY=$1
+RESPOSITORY=$2
+COMMIT_ID=$3
+DIST_DIRECTORY=$4
 
-  paths-ignore:
-    - 'dist'
-    - 'licenses'
-    - '**/*.md'
-    - 'LICENSE'
-    - 'NOTICE'
-    - 'rockspec'
-    - '.gitignore'
-    - '.luacheckrc'
-    - '.mvn'
+HOME_DIR="$(cd "$(dirname $0)"; pwd)"
 
-  comment: on-failure
+git clone $RESPOSITORY $WORK_DIRECTORY
+
+cd $WORK_DIRECTORY
+
+git checkout $COMMIT_ID
+
+mvn -B package -DskipTests
+
+[[ -d $DIST_DIRECTORY ]] || mkdir -p $DIST_DIRECTORY
+
+cp $WORK_DIRECTORY/dist/* $DIST_DIRECTORY/

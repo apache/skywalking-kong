@@ -12,7 +12,7 @@ description = {
 }
 
 dependencies = {
-   "skywalking-nginx-lua >= 0.4-1"
+   "skywalking-nginx-lua >= master"
 }
 
 build = {
