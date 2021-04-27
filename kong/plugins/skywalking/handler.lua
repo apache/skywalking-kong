@@ -26,9 +26,11 @@ local SkyWalkingHandler = {
     VERSION = "0.0.1",
 }
 
+
 function SkyWalkingHandler:init_worker()
     require("skywalking.util").set_randomseed()
 end
+
 
 function SkyWalkingHandler:access(config)
     if subsystem == "stream" then
@@ -48,9 +50,24 @@ function SkyWalkingHandler:access(config)
             client:startBackendTimer(config.backend_http_uri)
         end
 
-        tracer:start(kong.request.get_forwarded_host())
+        tracer:start(self:get_remote_peer(ngx.ctx.balancer_data))
     end
 end
+
+
+function SkyWalkingHandler:get_remote_peer(balancer_data)
+    local peer = ''
+    if balancer_data then
+        if balancer_data.host then
+            peer = balancer_data.host
+        else
+            peer = balancer_data.ip
+        end
+        peer = peer .. ':' .. balancer_data.port
+    end
+    return peer
+end
+
 
 function SkyWalkingHandler:body_filter(config)
     if ngx.arg[2] and kong.ctx.plugin.skywalking_sample then
@@ -75,8 +92,10 @@ function SkyWalkingHandler:body_filter(config)
     end
 end
 
+
 function SkyWalkingHandler:log(config)
     tracer:prepareForReport()
 end
+
 
 return SkyWalkingHandler
