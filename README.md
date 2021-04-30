@@ -35,25 +35,13 @@ Restart Kong
 
 2. Enabling & configuring plugin:
 
-Add the plugin to a service:
-
-```bash
-$ curl -i -X POST \
-   --url http://localhost:8001/services/{service_name}/plugins/ \
-   --data 'name=skywalking' \
-   --data 'config.backend_http_uri=http://localhost:12800' \
-   --data 'config.sample_ratio=100' \
-   --data 'config.service_name=kong'
-   --data 'config.service_instance_name=kong-with-skywalking'
-``` 
-
 Add the plugin to global:
 ```bash
 $ curl -X POST --url http://localhost:8001/plugins/ \
    --data 'name=skywalking' \
    --data 'config.backend_http_uri=http://localhost:12800' \
    --data 'config.sample_ratio=100' \
-   --data 'config.service_name=kong'
+   --data 'config.service_name=kong' \
    --data 'config.service_instance_name=kong-with-skywalking'
 ```
 

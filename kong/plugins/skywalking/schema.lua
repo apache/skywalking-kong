@@ -20,12 +20,10 @@ local typedefs = require "kong.db.schema.typedefs"
 return {
     name = "skywalking",
     fields = {
-        {
-            consumer = typedefs.no_consumer
-        },
-        {
-            protocols = typedefs.protocols_http
-        },
+        { consumer = typedefs.no_consumer },
+        { service = typedefs.no_service },
+        { route = typedefs.no_route },
+        { protocols = typedefs.protocols_http },
         {
             config = {
                 type = "record",
