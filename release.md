@@ -109,12 +109,10 @@ Mail title: [ANNOUNCE] Release Apache SkyWalking Kong version x.y.z
 Mail content:
 Hi all,
 
-Apache SkyWalking  Team is glad to announce the first release of Apache SkyWalking Kong x.y.z
+Apache SkyWalking Team is glad to announce to release Apache SkyWalking Kong version x.y.z.
 
 SkyWalking: APM (application performance monitor) tool for distributed systems,
 especially designed for microservices, cloud native and container-based (Docker, Kubernetes, Mesos) architectures.
-
-SkyWalking Nginx Agent provides the native tracing capability for Nginx powered by Kong module.
 
 This release contains a number of new features, bug fixes and improvements compared to
 version a.b.c(last release). The notable changes since x.y.z include:
