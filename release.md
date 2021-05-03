@@ -114,6 +114,8 @@ Apache SkyWalking Team is glad to announce to release Apache SkyWalking Kong ver
 SkyWalking: APM (application performance monitor) tool for distributed systems,
 especially designed for microservices, cloud native and container-based (Docker, Kubernetes, Mesos) architectures.
 
+SkyWalking Kong Agent provides the native tracing capability for Kong.
+
 This release contains a number of new features, bug fixes and improvements compared to
 version a.b.c(last release). The notable changes since x.y.z include:
 
