@@ -54,6 +54,8 @@ within the next couple of days.
 
 4. Wait at least 48 hours for test responses. If there is a critical issue found and confirmed by the PMC, this release should be cancelled.
 
+Once the vote cancelled, send a cancelled mail with `[CANCELLED][VOTE]` as the prefix of the mail title at first. And then re-send mail with title prefix `[VOTE][ROUND N]` for calling a new vote.
+
 5. Call for a vote. Call a vote in dev@skywalking.apache.org
 
 ```
@@ -91,7 +93,9 @@ Voting will start now (xxxx date) and will remain open for at least 72 hours, Re
 
 ```
 
-5. Publish release, if vote passed.
+5. After 72Hours passed, send a mail to announce ones the result. Let `[RESULT]` as the mail title prefix. Go on to step 1, if vote failed. 
+
+6. Prepare to publish release, if vote passed.
 
 Move the release from RC folder to the dist folder. This will begin the file sync across the global Apache mirrors.
 ```
@@ -102,7 +106,19 @@ enter your apache password
 ....
 ```
 
-Send ANNOUNCE email to `dev@skywalking.apache.org`, `announce@apache.org`, the sender should use Apache email account.
+7. Publish release.
+
+Please update the SkyWalking-Website first.
+
+Then please remove the old version packages, after ensuring the mirror of the new version is available.
+```
+> svn delete -m "remove old version a.b.c" https://dist.apache.org/repos/dist/release/skywalking/kong/a.b.c
+....
+enter your apache password
+....
+```
+
+Finally, send ANNOUNCE email to `dev@skywalking.apache.org`, `announce@apache.org`, the sender should use Apache email account.
 ```
 Mail title: [ANNOUNCE] Release Apache SkyWalking Kong version x.y.z
 
@@ -145,16 +161,7 @@ SkyWalking Resources:
 - Apache SkyWalking Team
 ```
 
-6. upload rockspec file to luarocks.org
+8. upload rockspec file to luarocks.org
 login to [luarocks.org](https://luarocks.org/), the user name is `apache-skywalking` and the password has been sent to `private@skwalking.apache.org`.
 
 Then upload the rockspec file and you can use the `luarocks` command line to install the new version.
-
-7. remove the old version packages from svn
-Please remove the old version packages, after ensuring the mirror of the new version is available.
-```
-> svn delete -m "remove old version a.b.c" https://dist.apache.org/repos/dist/release/skywalking/kong/a.b.c
-....
-enter your apache password
-....
-```
