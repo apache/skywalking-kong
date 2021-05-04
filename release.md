@@ -100,9 +100,6 @@ Move the release from RC folder to the dist folder. This will begin the file syn
 ....
 enter your apache password
 ....
-
-# remove the old version(s) if it exists
-> svn delete -m "remove old version a.b.c" https://dist.apache.org/repos/dist/release/skywalking/kong/a.b.c
 ```
 
 Send ANNOUNCE email to `dev@skywalking.apache.org`, `announce@apache.org`, the sender should use Apache email account.
@@ -152,3 +149,12 @@ SkyWalking Resources:
 login to [luarocks.org](https://luarocks.org/), the user name is `apache-skywalking` and the password has been sent to `private@skwalking.apache.org`.
 
 Then upload the rockspec file and you can use the `luarocks` command line to install the new version.
+
+7. remove the old version packages from svn
+Please remove the old version packages, after ensuring the mirror of the new version is available.
+```
+> svn delete -m "remove old version a.b.c" https://dist.apache.org/repos/dist/release/skywalking/kong/a.b.c
+....
+enter your apache password
+....
+```
