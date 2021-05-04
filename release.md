@@ -100,7 +100,9 @@ Move the release from RC folder to the dist folder. This will begin the file syn
 ....
 enter your apache password
 ....
-> svn delete -m "remove old version" https://dist.apache.org/repos/dist/dev/skywalking/kong/x.y.z
+
+# remove the old version(s) if it exists
+> svn delete -m "remove old version a.b.c" https://dist.apache.org/repos/dist/release/skywalking/kong/a.b.c
 ```
 
 Send ANNOUNCE email to `dev@skywalking.apache.org`, `announce@apache.org`, the sender should use Apache email account.
