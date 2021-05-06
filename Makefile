@@ -17,14 +17,20 @@ SHELL := /bin/bash -o pipefail
 
 VERSION ?= latest
 RELEASE_SRC = skywalking-kong-${VERSION}-src
+ROCKSPEC = ./rockspec/kong-plugin-skywalking-${VERSION}-0.rockspec
 
 .PHONY: default
 default: release-src
 
-### test:         Run test suite. Use test=... for specific tests
-.PHONY: test
-test:
-	prove -I. -r -s t
+.PHONY: verify
+verify:
+	@ls ${ROCKSPEC} || echo "ERROR: ${ROCKSPEC} not found."
+	@grep -E '^version = "${VERSION}-0"' ${ROCKSPEC} \
+		|| (echo "ERROR: incorrect version number, should be \"${VERSION}-0\"." && exit 1)
+	@grep -E 'branch = ("v${VERSION}"|"master")' ${ROCKSPEC} \
+		|| (echo "ERROR: incorrect branch name, should be \"v${VERSION}\"." && exit 1)
+	@luarocks pack ${ROCKSPEC}
+	@rm ./kong-plugin-skywalking-${VERSION}-0.src.rock
 
 ### help:         Show Makefile rules
 .PHONY: help
@@ -35,6 +41,7 @@ help:
 
 ### release-src:  Release source code
 .PHONY: release-src
+verify:
 release-src:
 	tar -zcvf $(RELEASE_SRC).tgz \
 		./kong \
