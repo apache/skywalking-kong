@@ -67,7 +67,6 @@ function SkyWalkingHandler:get_remote_peer(balancer_data)
     end
     return peer
 end
-[notification]
 
 
 function SkyWalkingHandler:body_filter(config)
