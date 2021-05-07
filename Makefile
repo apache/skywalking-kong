@@ -17,7 +17,7 @@ SHELL := /bin/bash -o pipefail
 
 VERSION ?= latest
 RELEASE_SRC = skywalking-kong-${VERSION}-src
-ROCKSPEC = ./rockspec/kong-plugin-skywalking-${VERSION}-0.rockspec
+ROCKSPEC = ./rockspec/kong-skywalking-${VERSION}-0.rockspec
 
 .PHONY: default
 default: release-src
