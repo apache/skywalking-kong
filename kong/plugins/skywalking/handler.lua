@@ -23,7 +23,7 @@ local subsystem = ngx.config.subsystem
 
 local SkyWalkingHandler = {
     PRIORITY = 100001,
-    VERSION = "0.0.1",
+    VERSION = "0.1.1",
 }
 
 

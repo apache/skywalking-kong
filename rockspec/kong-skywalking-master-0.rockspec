@@ -1,8 +1,8 @@
-package = "kong-plugin-skywalking"
-version = "0.1.0-0"
+package = "kong-skywalking"
+version = "master-0"
 source = {
    url = "git://github.com/apache/skywalking-kong",
-   branch = "v0.1.0",
+   branch = "master",
 }
 
 description = {

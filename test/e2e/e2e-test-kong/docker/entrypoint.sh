@@ -34,7 +34,7 @@ luarocks make ./rockspec/skywalking-nginx-lua-master-0.rockspec --local
 
 cd /skywalking-kong
 
-luarocks make ./rockspec/kong-plugin-skywalking-master-0.rockspec --local
+luarocks make ./rockspec/kong-skywalking-master-0.rockspec --local
 
 kong migrations bootstrap
 
