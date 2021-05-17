@@ -16,7 +16,7 @@ SkyWalking Kong agent built on [SkyWalking Nginx Lua agent](https://github.com/a
 
 Install kong-plugin-skywalking using `luarocks`:
 ```bash
-$ luarocks install kong-plugin-skywalking --local
+$ luarocks install kong-skywalking --local
 ```
 
 Edit kong.conf:
