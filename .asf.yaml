@@ -26,6 +26,8 @@ github:
       - nginx
       - lua
       - dapper
+      - kong
+      - gateway
     enabled_merge_buttons:
       squash:  true
       merge:   false
