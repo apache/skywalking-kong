@@ -12,6 +12,8 @@ SkyWalking Kong agent built on [SkyWalking Nginx Lua agent](https://github.com/a
 
 ## Usage
 
+Kong 2.2+ required.
+
 1. Install the plugin in Kong:
 
 Install kong-plugin-skywalking using `luarocks`:
