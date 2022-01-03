@@ -1,5 +1,9 @@
 # Changes
 
+## 0.2.0
+
+1. Upgrade SkyWalking Nginx Lua version to v0.6.0
+
 ## 0.1.1
 
 1. Fix .rockspec issue.
