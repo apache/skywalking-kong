@@ -15,7 +15,7 @@
 # specific language governing permissions and limitations
 # under the License.
 
-FROM openjdk:8
+FROM eclipse-temurin:8-jdk
 
 WORKDIR /usr/local/skywalking-nginx-lua
 

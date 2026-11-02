@@ -79,6 +79,18 @@
                             </run>
                         </image>
                         <image>
+                            <name>nginx:1.30.6-alpine</name>
+                            <alias>upstream</alias>
+                            <run>
+                                <hostname>upstream</hostname>
+                                <wait>
+                                    <log>.*ready for start up.*</log>
+                                    <time>60000</time>
+                                </wait>
+                                <net>custom</net>
+                            </run>
+                        </image>
+                        <image>
                             <name>kong:2.3.3</name>
                             <alias>kong-with-skywalking</alias>
                             <run>
@@ -105,6 +117,7 @@
                                 <dependsOn>
                                     <container>kong-database</container>
                                     <container>skywalking-collector</container>
+                                    <container>upstream</container>
                                 </dependsOn>
                                 <links>
                                     <link>kong-database</link>

@@ -88,7 +88,7 @@ public class DataAssertITCase {
         do {
             try (CloseableHttpResponse response = client.execute(new HttpGet(collectorBaseURL + "/receiveData"))) {
                 String content = new String(ByteStreams.toByteArray(response.getEntity().getContent()));
-                if (!"segmentItems: []".equals(content)) {
+                if (!content.startsWith("segmentItems: []")) {
                     success = true;
                     break;
                 }
@@ -112,7 +112,7 @@ public class DataAssertITCase {
                 }
             }
             post.abort();
-            TimeUnit.SECONDS.sleep(5000L); // Wait Agent reported TraceSegment.
+            TimeUnit.SECONDS.sleep(5L); // Wait Agent reported TraceSegment.
         }
         while (++times <= MAX_RETRY_TIMES);
 
@@ -130,7 +130,7 @@ public class DataAssertITCase {
         HttpPost post = new HttpPost(kongAdminBaseUrl + "/services");
         List<BasicNameValuePair> basicNameValuePairs = Lists.newArrayList(
             new BasicNameValuePair("name", "upstream-service"),
-            new BasicNameValuePair("url", "http://mockbin.org")
+            new BasicNameValuePair("url", "http://upstream")
         );
         UrlEncodedFormEntity entity = new UrlEncodedFormEntity(basicNameValuePairs);
         post.setEntity(entity);

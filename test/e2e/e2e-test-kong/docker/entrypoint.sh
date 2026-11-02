@@ -30,11 +30,11 @@ git remote add origin https://github.com/apache/skywalking-nginx-lua
 git fetch origin ${COMMIT_ID}
 git checkout ${COMMIT_ID}
 
-luarocks make ./rockspec/skywalking-nginx-lua-master-0.rockspec --local
+luarocks make ./rockspec/skywalking-nginx-lua-master-0.rockspec --local --deps-mode=all
 
 cd /skywalking-kong
 
-luarocks make ./rockspec/kong-skywalking-master-0.rockspec --local
+luarocks make ./rockspec/kong-skywalking-master-0.rockspec --local --deps-mode=all
 
 kong migrations bootstrap
 
